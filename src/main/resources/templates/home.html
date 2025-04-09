@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+
+</head>
+<body>
+<header>
+    <a href="#" class="logo"><span>Future</span>Wonders</a>
+    <nav class="bar">
+        <a href="home" class="indam">Trang chủ</a>
+        <a href="booking">Đặt vé</a>
+        <a href="hotel">Khách sạn</a>
+        <a href="flight">Chuyến bay</a>
+        <a href="trending">Nổi bật</a>
+        <a href="news">Tin tức</a>
+        <a href="package">Gói </a>
+        <a href="services">Dịch vụ</a>
+        <a href="gallery">Ảnh</a>
+        <a href="review">Đánh Giá</a>
+        <a href="contact">Liên hệ</a>
+        <a href="plan-trip">Thanh Toán</a>
+    </nav>
+    <div class="icons">
+        <a href="#"><i class="fas fa-search" id="search-btn"></i></a>
+<!--        <a href="user"><i class="fas fa-user" id="login-btn"></i></a>-->
+        <a href="#" id="user-icon">
+            <i class="fas fa-user"></i>
+        </a>
+        <div id="user-menu" class="dropdown-menu">
+            <a href="/profile">Xem Profile</a>
+            <a href="/user">Đăng xuất</a>
+        </div>
+
+    </div>
+
+</header>
+<section class="container-top">
+    <div class="content">
+        <h3>Khám phá mọi lúc mọi nơi</h3>
+        <p>Một cuộc hành trình mới, khám phá mới</p>
+        <a href="" class="discovermore">Khám Phá</a>
+    </div>
+    <div class="controls">
+        <span class="vid-btn active" data-src="images/ocean.mp4"></span>
+        <span class="vid-btn" data-src="images/waves.mp4"></span>
+        <span class="vid-btn" data-src="images/vid-4.mp4"></span>
+        <span class="vid-btn" data-src="images/seoul.mp4"></span>
+        <span class="vid-btn" data-src="images/vid-3.mp4"></span>
+    </div>
+    <div class="video-container">
+        <video src="images/ocean.mp4" id="video-slider" loop autoplay muted ></video>
+    </div>
+</section>
+<script src="/js/home.js"></script>
+<section class="slideshow-container">
+    <div class="slideshow">
+        <img src="/images/1.jpg" alt="">
+        <img src="/images/2.jpg" alt="">
+        <img src="/images/3.jpg" alt="">
+        <img src="/images/4.jpg" alt="">
+        <img src="/images/5.jpg" alt="">
+        <img src="/images/6.jpg" alt="">
+    </div>
+</section>
+<h1 class="heading">
+    <span>b</span>
+    <span>o</span>
+    <span>o</span>
+    <span>k</span>
+    <span>i</span>
+    <span>n</span>
+    <span>g</span>
+    <span class="space"></span>
+    <span>n</span>
+    <span>o</span>
+    <span>w</span>
+</h1>
+<div class="booking">
+    <img src="images/igeat.jpg" alt="">
+    <form action="">
+        <div class="inputBox">
+            <h3>Palace</h3>
+            <input type="text" placeholder="palace name ">
+        </div>
+        <div class="inputBox">
+            <h3>How many people</h3>
+            <input type="text" placeholder="number of people">
+        </div>
+        <div class="inputBox">
+            <h3>Checkin Time</h3>
+            <input type="date" >
+        </div>
+        <div class="inputBox">
+            <h3>Check Out Time</h3>
+            <input type="date">
+        </div>
+        <input type="submit" value="Booking Now" class="submit">
+    </form>
+</div>
+<h1 class="heading">
+    <span>T</span>
+    <span>O</span>
+    <span>P</span>
+    <span class="space"></span>
+    <span>T</span>
+    <span>R</span>
+    <span>E</span>
+    <span>N</span>
+    <span>D</span>
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+</h1>
+<div class="khoitin">
+    <div class="tin">
+        <a href=""><img src="images/dia-diem-hampshire-anh.jpg" alt=""></a>
+        <h2>Event 1</h2>
+            <p>Date : January 15 2024</p>
+            <p>Location : City </p>
+    </div>
+    <div class="tin">
+        <a href=""><img src="images/g-9.jpg" alt=""></a>
+        <h2>Event 2</h2>
+            <p>Date : December 15 2023</p>
+            <p>Location : City </p>
+    </div>
+    <div class="tin">
+        <a href=""><img src="images/neuschwanstein-đức.jpg" alt=""></a>
+        <h2>Event 3</h2>
+            <p>Date : January 17 2024</p>
+            <p>Location : City </p>
+    </div>
+    <div class="tin">
+        <a href=""> <img src="images/trung-tam-thanh-pho-ha-noi-603da1f235b38.jpg" alt=""></a>
+        <h2>Event 4</h2>
+            <p>Date : March 15 2024</p>
+            <p>Location : Ha Noi City </p>
+    </div>
+    <div class="tin">
+        <a href=""><img src="images/hcm.jfif" alt=""></a>
+        <h2>Event 5</h2>
+            <p>Date : July 24 2024</p>
+            <p>Location : Ho Chi Minh City </p>
+    </div>
+    <div class="tin">
+        <a href=""><img src="images/danang.jfif" alt=""></a>
+        <h2>Event 6</h2>
+            <p>Date : Jun 212024</p>
+            <p>Location : Da Nang City </p>
+    </div>
+</div>
+<h1 class="heading">
+    <span>n</span>
+    <span>e</span>
+    <span>w</span>
+    <span>s</span>
+</h1>
+<div class="khoitin1">
+    <div class="tin">
+        <img src="images/costa-rica.jpg" alt="">
+        <h2>Khám Phá Vẻ Đẹp Hoang Dã Ở Costa-Rica</h2>
+        <p>Cuộc Hành Trình Qua Các Khu Rừng Mưa Nhiệt Đới Và Vùng Biển Tuyệt Đẹp Của Costa Rica Sẽ Đưa Bạn Đến Gần Với Thiên Nhiên Hoang Dã,
+            Các Loài Động Vật Quý Hiếm Và Cảnh Quan Tuyệt Đẹp.</p>
+        <a href="https://luhanhvietnam.com.vn/du-lich/vuon-quoc-gia-chirripo-costa-rica.html" target="_blank"><span class="docthem">Đọc thêm</span></a>
+        <p>Date : 27/12/2023</p>
+    </div>
+    <div class="tin">
+        <img src="images/p-1.jpg" alt="">
+        <h2>Lịch Trình Hoàn Hảo Cho Kỳ Nghỉ Ấn Độ</h2>
+        <p>Với sự phong phú về văn hóa, lịch sử và thực phẩm, Ấn Độ là một điểm đến hoàn hảo cho kỳ nghỉ của bạn.
+            Bài viết này đưa ra lời khuyên cho một lịch trình đầy đủ và thú vị ở Ấn Độ.</p>
+        <a href="https://www.traveloka.com/vi-vn/explore/destination/du-lich-mumbai/243981" target="_blank"><span class="docthem">Đọc thêm</span></a>
+        <p>Ngày đăng: 10/04/2023</p>
+    </div>
+    <div class="tin">
+        <img src="images/Kilimanjaro.jpg" alt="">
+        <h2>Chinh Phục Đỉnh Thế Giới: Leo Núi Kilimanjaro</h2>
+        <p>CCuộc hành trình độc đáo đến đỉnh núi Kilimanjaro ở Tanzania, một trong những ngọn núi cao nhất châu Phi,
+            sẽ thách thức bạn và mang lại những trải nghiệm đáng nhớ.</p>
+        <a href="https://thanhnien.vn/thoi-trang-tre/trekking-chinh-phuc-dinh-kilimanjaro-noc-nha-chau-phi-185231024190638141.htm" target="_blank"><span class="docthem">Đọc thêm</span></a>
+        <p>Ngày đăng: 10/04/2023</p>
+    </div>
+    <div class="tin">
+        <img src="images/p-4.jpg" alt="">
+        <h2>Thưởng Thức Vị Ngon Hấp Dẫn ở Paris, Pháp</h2>
+        <p>Paris không chỉ nổi tiếng với tháp Eiffel mà còn là thiên đàng ẩm thực. Tìm hiểu về những món ăn ngon và nhà hàng nổi tiếng tại Thủ đô Ánh sáng.</p>
+        <a href="https://eurotravel.com.vn/thanh-pho-paris/" target="_blank"><span class="docthem">Đọc thêm</span></a>
+        <p>Ngày đăng: 10/04/2023</p>
+    </div>
+    <div class="tin">
+        <img src="images/Lapland.jpg" alt="Lapland">
+        <h3>Kỳ Nghỉ Mùa Đông ở Lapland, Phần Lan</h3>
+        <p>Nếu bạn muốn trải nghiệm sự thần kỳ của mùa đông, Lapland là nơi tuyệt vời để thăm. Hãy tham gia vào cuộc hành trình qua cảnh quan tuyệt đẹp và tận hưởng các hoạt động mùa đông.</p>
+        <a href="https://tatinta.com/tour/lapland-phan-lan-ky-nghi-lang-man-cho-cac-cap-doi/2018"  class="docthem" target="_blank"> Đọc thêm</a>
+        <p>Ngày đăng: 10/04/2023</p>
+    </div>
+</div>
+
+<h1 class="heading">
+    <span>p</span>
+    <span>a</span>
+    <span>c</span>
+    <span>k</span>
+    <span>a</span>
+    <span>g</span>
+    <span>e</span>
+</h1>
+<div class="khoitin2">
+    <div class="tin">
+        <video  controls loop >
+            <source src="images\vương quốc anh.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h3> <i class="fas fa-map-marker-alt"></i> The United Kingdom </h3>
+            <p>Hawaii, known for its cultural diversity, tropical climate, and stunning scenery, is a top destination for travelers seeking relaxation, adventure, and the warm aloha spirit.</p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+            </div>
+            <div class="price"> $78.00 <span>$120.00</span> </div>
+            <a href="#" class="docthem">book now</a>
+        </div>
+    </div>
+    <div class="tin">
+        <video  controls loop >
+            <source src="images\Hawaii.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h3> <i class="fas fa-map-marker-alt"></i> hawaii </h3>
+            <p>Hawaii, known for its cultural diversity, tropical climate, and stunning scenery, is a top destination for travelers seeking relaxation, adventure, and the warm aloha spirit.</p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="price"> $86.00 <span>$140.00</span> </div>
+            <a href="#" class="docthem">book now</a>
+        </div>
+    </div>
+    <div class="tin">
+        <video  controls loop >
+            <source src="images\mountain2.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h3> <i class="fas fa-map-marker-alt"></i>  Patagonia </h3>
+            <p>Patagonia's remote towns and settlements provide a unique opportunity to explore the region's rich culture and history,making it a unique South American destination for adventure </p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+            </div>
+            <div class="price"> $98.00 <span>$220.00</span> </div>
+            <a href="#" class="docthem">book now</a>
+        </div>
+    </div>
+    <div class="tin">
+        <video  controls loop >
+            <source src="images\paris_-_16619 (540p).mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h3> <i class="fas fa-map-marker-alt"></i> Paris </h3>
+            <p>Paris is a city that offers a unique blend of history, culture, and sophistication, making it a top destination for travelers from around the world. Whether you're interested in art, history, fashion, or simply soaking up the romantic ambiance, Paris has something to offer everyone.</p>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="price"> $56.00 <span>$126.00</span> </div>
+            <a href="#" class="docthem">book now</a>
+        </div>
+    </div>
+    <div class="tin">
+        <video  controls loop >
+            <source src="images\cherry.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <h3> <i class="fas fa-map-marker-alt"></i> Tokyo</h3>
+            <p>Tokyo, Japan's dynamic capital, gracefully harmonizes modernity with tradition, presenting a unique and multifaceted experience for visitors in this vibrant city.</p>
+            <br><br>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+            </div>
+            <div class="price"> $68.00 <span>$158.00</span> </div>
+            <a href="#" class="docthem">book now</a>
+        </div>
+    </div>
+
+</div>
+<h1 class="heading">
+    <span>s</span>
+    <span>e</span>
+    <span>r</span>
+    <span>v</span>
+    <span>i</span>
+    <span>c</span>
+    <span>e</span>
+    <span>s</span>
+</h1>
+<div class="khoitin3">
+    <div class="tin">
+        <i class="fas fa-hotel"></i>
+        <h3>affordable hotels</h3>
+        <p>Affordable Hotels: Quality Stays on a Budget. Start Your Journey Today!</p>
+    </div>
+    <div class="tin">
+        <i class="fas fa-utensils"></i>
+        <h3>food and drinks</h3>
+        <p>Explore global flavors and beverages, enriching your cultural palate. Delight in the world of food and drinks!</p>
+    </div>
+    <div class="tin">
+        <i class="fas fa-bullhorn"></i>
+        <h3>safty guide</h3>
+        <p>Prioritize safety in all situations and be proactive. Prevention is the key to avoiding accidents and emergencies.</p>
+    </div>
+    <div class="tin">
+        <i class="fas fa-globe-asia"></i>
+        <h3>around the world</h3>
+        <p>Traveling the world broadens horizons, connects with diversity, and offers unique experiences for every traveler.</p>
+    </div>
+    <div class="tin">
+        <i class="fas fa-plane"></i>
+        <h3>fastest travel</h3>
+        <p>For long distances, commercial air travel is the fastest mode of transportation.</p>
+    </div>
+    <div class="tin">
+        <i class="fas fa-hiking"></i>
+        <h3>adventures</h3>
+        <p>Adventures are exciting journeys that push boundaries and create lasting memories.</p>
+    </div>
+</div>
+<section class="footer">
+    <div class="container-footer">
+        <div class="footer-preview">
+            <a href=""><h2>About Us</h2></a>
+            <a href=""><p>Website developed by group 5 of Phenikaa University</p></a>
+            <a href=""><p>Duong Nhat Minh</p></a>
+            <a href=""><p>Nguyen Thi Kieu Loan</p></a>
+            <a href=""><p>Ha Nam Khanh</p></a>
+            <a href=""><p>Duong Van Thang</p></a>
+        </div>
+        <div class="footer-preview">
+            <h2>Brand Location</h2>
+            <ul>
+                <a href=""><li>India</li></a>
+                <a href=""><li>USA</li></a>
+                <a href=""><li>Japan</li></a>
+                <a href=""><li>France</li></a>
+                <a href=""><li>Korean</li></a>
+                <a href=""><li>Viet Nam</li></a>
+            </ul>
+        </div>
+        <div class="footer-preview">
+            <h2>Quick Link</h2>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="">Booking</a></li>
+                <li><a href="">Packages</a></li>
+                <li><a href="">Services</a></li>
+                <li><a href="">Gallery</a></li>
+                <li><a href="">Review</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-preview">
+            <h2>Quick Link</h2>
+            <ul>
+                <li><a href="">Facebook</a></li>
+                <li><a href="">Instagram</a></li>
+                <li><a href="">Youtube</a></li>
+                <li><a href="">Tiktok</a></li>
+                <li><a href="">Twitter</a></li>
+            </ul>
+        </div>
+    </div>
+    <h1 class="credit"> created by <span>  Group 5 </span></h1>
+</section>
+
+</body>
+<script>
+    document.getElementById("user-icon").addEventListener("click", function(event) {
+        event.preventDefault(); // Ngăn chặn chuyển trang
+        let menu = document.getElementById("user-menu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    });
+
+    // Ẩn menu khi click ra ngoài
+    document.addEventListener("click", function(event) {
+        let userIcon = document.getElementById("user-icon");
+        let menu = document.getElementById("user-menu");
+
+        if (!userIcon.contains(event.target) && !menu.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>
+</html>

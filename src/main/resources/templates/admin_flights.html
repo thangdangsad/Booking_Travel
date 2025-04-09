@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Flight</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/css/booking.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f4f4f4; }
+        .container { margin-top: 80px; } /* Đẩy nội dung xuống dưới để không bị header che */
+        .table th { background-color: #333; color: white; }
+        .btn { margin: 2px; }
+        a { text-decoration: none !important; } /* Loại bỏ gạch chân ở các liên kết */
+    </style>
+</head>
+<body>
+<header>
+    <a href="#" class="logo"><span>Future</span>Wonders</a>
+    <nav class="bar">
+        <a href="admin_booking">Quản Lý Chuyến Đi</a>
+        <a href="admin_account">Quản Lý Tài Khoản</a>
+        <a href="admin_flights" class="indam">Quản Lý Chuyến Bay</a>
+        <a href="admin_hotel">Quản Lý Khách Sạn</a>
+    </nav>
+    <div class="icons">
+        <a href=""><i class="fas fa-search" id="search-btn"></i></a>
+        <a href="user"><i class="fas fa-user" id="login-btn"></i></a>
+    </div>
+</header>
+
+<div class="container">
+    <h2>Manage Flights</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFlightModal">Thêm Chuyến Bay</button>
+    <table class="table table-bordered mt-3" id="flight-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Hạng</th>
+            <th>Hãng Bay</th>
+            <th>Giá</th>
+            <th>Khởi Hành</th>
+            <th>Hạ Cánh</th>
+            <th>Số Chỗ Ngồi</th>
+            <th>Có Sẵn</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="addFlightModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Add Flight</h5></div>
+            <div class="modal-body">
+                <select id="ticketClass" class="form-control mb-2">
+                    <option value="BUSINESS_CLASS">BUSINESS_CLASS</option>
+                    <option value="NORMAL_CLASS">NORMAL_CLASS</option>
+                </select>
+
+                <input type="text" id="airlineName" placeholder="Airline" class="form-control mb-2">
+                <input type="number" id="price" placeholder="Price" class="form-control mb-2">
+                <input type="date" id="checkInDate" class="form-control mb-2">
+                <input type="date" id="checkOutDate" class="form-control mb-2">
+                <input type="number" id="numberOfChairs" placeholder="Seats" class="form-control mb-2">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="createFlight()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateFlightModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập Nhật Chuyến Bay</h5>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="updateFlightId">
+                <select id="updateTicketClass" class="form-control mb-2">
+                    <option value="BUSINESS_CLASS">BUSINESS_CLASS</option>
+                    <option value="NORMAL_CLASS">NORMAL_CLASS</option>
+                </select>
+                <input type="text" id="updateAirlineName" placeholder="Airline" class="form-control mb-2">
+                <input type="number" id="updatePrice" placeholder="Price" class="form-control mb-2">
+                <input type="date" id="updateCheckInDate" class="form-control mb-2">
+                <input type="date" id="updateCheckOutDate" class="form-control mb-2">
+                <input type="number" id="updateNumberOfChairs" placeholder="Seats" class="form-control mb-2">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="saveUpdatedFlight()">Lưu Thay Đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fetchFlights() {
+        fetch("/flight/getAll")
+            .then(response => response.json())
+            .then(data => { if (data.code === 1000) renderFlightTable(data.data); })
+            .catch(error => console.error("Error fetching flights:", error));
+    }
+
+    function renderFlightTable(flights) {
+        const tableBody = document.querySelector("#flight-table tbody");
+        tableBody.innerHTML = "";
+        flights.forEach(flight => {
+            const row = `<tr>
+                <td>${flight.id}</td>
+                <td>${flight.ticketClass}</td>
+                <td>${flight.airlineName}</td>
+                <td>${flight.price}</td>
+                <td>${new Date(flight.checkInDate).toLocaleDateString()}</td>
+                <td>${new Date(flight.checkOutDate).toLocaleDateString()}</td>
+                <td>${flight.numberOfChairs}</td>
+                <td>${flight.seatAvailable}</td>
+                <td>
+                    <button class='btn btn-success' onclick='openUpdateModal(${JSON.stringify(flight)})'>Cập Nhật</button>
+                    <button class='btn btn-danger' onclick='deleteFlight(${flight.id})'>Xóa</button>
+                </td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    function createFlight() {
+        const newFlight = {
+            ticketClass: document.getElementById("ticketClass").value,
+            airlineName: document.getElementById("airlineName").value,
+            price: document.getElementById("price").value,
+            checkInDate: document.getElementById("checkInDate").value,
+            checkOutDate: document.getElementById("checkOutDate").value,
+            numberOfChairs: document.getElementById("numberOfChairs").value
+        };
+
+        fetch("/flight/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newFlight)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 1000) {
+                    alert("Flight added successfully!");
+                    fetchFlights(); // Load lại danh sách chuyến bay
+                    document.getElementById("addFlightModal").querySelector(".btn-close").click(); // Đóng modal
+                } else {
+                    alert("Error: " + data.message); // Hiển thị thông báo lỗi từ backend
+                }
+            })
+            .catch(error => {
+                console.error("Error adding flight:", error);
+                // alert("An unexpected error occurred!");
+            });
+    }
+
+    function deleteFlight(flightId) {
+        if (confirm("Are you sure you want to delete this flight?")) {
+            fetch(`/flight/delete/${flightId}`, { method: "DELETE" })
+                .then(response => response.json())
+                .then(() => { fetchFlights(); })
+                .catch(error => console.error("Error deleting flight:", error));
+        }
+    }
+    function openUpdateModal(flight) {
+        document.getElementById("updateFlightId").value = flight.id;
+        document.getElementById("updateTicketClass").value = flight.ticketClass;
+        document.getElementById("updateAirlineName").value = flight.airlineName;
+        document.getElementById("updatePrice").value = flight.price;
+        document.getElementById("updateCheckInDate").value = flight.checkInDate.split("T")[0];
+        document.getElementById("updateCheckOutDate").value = flight.checkOutDate.split("T")[0];
+        document.getElementById("updateNumberOfChairs").value = flight.numberOfChairs;
+
+        // Hiển thị modal cập nhật
+        new bootstrap.Modal(document.getElementById("updateFlightModal")).show();
+    }
+    function saveUpdatedFlight() {
+        const flightId = document.getElementById("updateFlightId").value;
+        const updatedFlight = {
+            ticketClass: document.getElementById("updateTicketClass").value,
+            airlineName: document.getElementById("updateAirlineName").value,
+            price: document.getElementById("updatePrice").value,
+            checkInDate: document.getElementById("updateCheckInDate").value,
+            checkOutDate: document.getElementById("updateCheckOutDate").value,
+            numberOfChairs: document.getElementById("updateNumberOfChairs").value
+        };
+
+        fetch(`/flight/update/${flightId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedFlight)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 1000) {
+                    alert("Flight updated successfully!");
+                    fetchFlights();
+                } else {
+                    alert("Failed to update flight: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error updating flight:", error));
+    }
+
+    document.addEventListener("DOMContentLoaded", fetchFlights);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

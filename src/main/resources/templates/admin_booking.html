@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Management</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin_booking.css">
+    <style>
+        /* Đảm bảo rằng bảng chiếm 100% độ rộng của trang */
+        #bookingTable {
+            width: 100%;
+            border-collapse: collapse; /* Đảm bảo không có khoảng trống giữa các đường viền ô */
+        }
+
+        /* Tạo khoảng cách và đường viền cho các ô */
+        #bookingTable th, #bookingTable td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd; /* Đường viền của các ô */
+        }
+
+        /* Đặt màu nền cho tiêu đề bảng */
+        #bookingTable th {
+            background-color: #f2f2f2;
+        }
+
+        /* Các nút xóa */
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .pagination-btn {
+            margin: 5px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .pagination-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .search-btn {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
+        .confirm-btn {
+            background-color: #4CAF50; /* Màu xanh lá cây */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .confirm-btn:hover {
+            background-color: #45a049; /* Màu xanh lá cây đậm hơn khi hover */
+        }
+        #payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #payment-modal > div {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .confirm-btn {
+            background-color: #4CAF50; /* Màu xanh lá cây */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .confirm-btn:hover {
+            opacity: 0.9;
+        }
+
+        #confirm-failed-btn {
+            background-color: #f44336; /* Màu đỏ */
+        }
+
+        #close-modal-btn {
+            background-color: #ccc; /* Màu xám */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="#" class="logo"><span>Future</span>Wonders</a>
+    <nav class="bar">
+        <a href="" class="indam">Quản Lý Chuyến Đi</a>
+        <a href="admin_account">Quản Lý Tài Khoản</a>
+        <a href="admin_flights" > Quản Lý Chuyến Bay</a>
+        <a href="admin_hotel">Quản Lý Khách Sạn</a>
+    </nav>
+    <div class="icons">
+        <a href=""><i class="fas fa-search" id="search-btn"></i></a>
+        <a href="user"><i class="fas fa-user" id="login-btn"></i></a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="left">
+        <p><b>POS Bán Hàng</b></p>
+    </div>
+    <div class="right">
+        <span><i class="fas fa-calendar-alt"></i> <span id="currentDate"></span></span> |
+        <span><i class="fas fa-clock"></i> <span id="currentTime"></span></span>
+    </div>
+</div>
+
+<h2>Trip Booking Management</h2>
+<input type="text" id="bookingInput" onkeyup="filterBookingTable()" placeholder="Enter customer name or room to search...">
+<button onclick="fetchOrdersWithSearch()" class="search-btn">Tìm kiếm</button>
+<table id="bookingTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Thời gian đặt</th>
+        <th>Tên khách hàng</th>
+        <th>Địa điểm</th>
+        <th>Ngày check-in</th>
+        <th>Ngày check-out</th>
+        <th>Tên hãng bay</th>
+        <th>Giờ bay</th>
+        <th>Giờ hạ cánh</th>
+        <th>Khách sạn</th>
+        <th>Tổng tiền</th>
+        <th>Tình trạng thanh toán</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+    </tbody>
+</table>
+<div id="pagination" style="margin-top: 20px; text-align: center"></div>
+<!-- Modal -->
+<div id="payment-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+    <div style="background-color: white; padding: 20px; border-radius: 10px; text-align: center;">
+        <h2>Xác nhận thanh toán</h2>
+        <p>Bạn có chắc chắn muốn xác nhận thanh toán cho đơn hàng này không?</p>
+        <button id="confirm-success-btn" class="confirm-btn">Thành công</button>
+        <button id="confirm-failed-btn" class="confirm-btn" style="background-color: #f44336;">Thất bại</button>
+        <button id="close-modal-btn" class="confirm-btn" style="background-color: #ccc;">Đóng</button>
+    </div>
+</div>
+<script>
+    let currentOrderId = null; // Lưu orderId được chọn
+    let currentPage = 0; // Trang hiện tại
+    const pageSize = 5; // Số lượng đơn hàng mỗi trang
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchOrders(currentPage);
+    });
+
+    function fetchOrders(page) {
+        fetch(`/order/getAllOrder?pageNo=${page}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 1000 && data.data.items.length > 0) {
+                    renderOrderTable(data.data.items);
+                    renderPagination(data.data.totalPages);
+                } else {
+                    console.error("No orders found or API returned error:", data.message);
+                }
+            })
+            .catch(error => console.error("Error fetching orders:", error));
+    }
+
+
+    function renderOrderTable(orders) {
+        const tableBody = document.querySelector("#bookingTable tbody");
+        tableBody.innerHTML = ""; // Xóa dữ liệu cũ (nếu có)
+
+        orders.forEach(order => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+      <td>${order.id}</td>
+      <td>${formatDateTime(order.orderDate)}</td>
+      <td>${order.user.fullName}</td>
+      <td>${order.destination}</td>
+      <td>${formatDate(order.checkinDate)}</td>
+      <td>${formatDate(order.checkoutDate)}</td>
+      <td>${order.flight ? order.flight.airlineName : "N/A"}</td>
+      <td>${order.flight ? formatDateTime(order.flight.checkInDate) : "N/A"}</td>
+      <td>${order.flight ? formatDateTime(order.flight.checkOutDate) : "N/A"}</td>
+      <td>${order.hotel ? order.hotel.hotelName : "N/A"}</td>
+      <td>${order.totalPrice}</td>
+      <td>${order.payment ? getPaymentStatus(order.payment.status) : 'Chưa thanh toán'}</td>
+      <td>
+        ${order.payment && order.payment.status === 'VERIFYING'
+                ? `<button class="confirm-btn" onclick="confirmPayment(${order.id})">Xác nhận thanh toán</button>`
+                : ''}
+      </td>
+    `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Định dạng ngày tháng (ví dụ: 01/01/2025)
+    function formatDate(dateString) {
+        if (!dateString) return "N/A";
+        const date = new Date(dateString);
+        return date.toLocaleDateString(); // Định dạng ngày tháng theo local
+    }
+
+    // Định dạng ngày và giờ (ví dụ: 01/01/2025 10:30 AM)
+    function formatDateTime(dateTimeString) {
+        if (!dateTimeString) return "N/A";
+        const date = new Date(dateTimeString);
+        return date.toLocaleString(); // Định dạng ngày và giờ theo local
+    }
+    function renderPagination(totalPages) {
+        const paginationContainer = document.getElementById("pagination");
+        paginationContainer.innerHTML = ""; // Xóa các nút cũ
+
+        for (let i = 0; i < totalPages; i++) {
+            const button = document.createElement("button");
+            button.textContent = i + 1;
+            button.classList.add("pagination-btn");
+            if (i === currentPage) {
+                button.style.backgroundColor = "#4CAF50"; // Màu khi active
+                button.style.color = "white";
+            }
+            button.onclick = function () {
+                currentPage = i;
+                fetchOrders(currentPage);
+            };
+            paginationContainer.appendChild(button);
+        }
+    }
+
+    function deleteOrder(orderId) {
+        if (confirm("Bạn có chắc chắn muốn xóa đơn hàng này không?")) {
+            fetch(`/order/${orderId}`, {
+                method: "DELETE",
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.code === 1000) {
+                        alert("Xóa đơn hàng thành công!");
+                        // Làm mới bảng sau khi xóa
+                        fetch("/order/getAllOrder")
+                            .then(response => response.json())
+                            .then(data => renderOrderTable(data.data));
+                    } else {
+                        alert("Xóa đơn hàng thất bại: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error deleting order:", error);
+                });
+        }
+    }
+
+    function fetchOrdersWithSearch() {
+        let searchQuery = document.getElementById("bookingInput").value.trim();
+
+        if (searchQuery === "") {
+            fetchOrders(currentPage); // Nếu ô tìm kiếm trống, lấy lại toàn bộ danh sách
+            return;
+        }
+
+        fetch(`/order/getAllOrderWithMultipleColumnsWithSearch?pageNo=${currentPage}&pageSize=${pageSize}&search=${searchQuery}&sortBy=totalPrice:asc`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 1000 && data.data.items.length > 0) {
+                    renderOrderTable(data.data.items);
+                    renderPagination(data.data.totalPages);
+                } else {
+                    console.error("No orders found or API returned error:", data.message);
+                    alert("Không tìm thấy")
+                }
+            })
+            .catch(error => console.error("Error fetching orders:", error));
+    }
+
+</script>
+<<script>
+    function getPaymentStatus(status) {
+        switch (status) {
+            case 'PAID':
+                return 'Đã thanh toán';
+            case 'UNPAID':
+                return 'Chưa thanh toán';
+            case 'VERIFYING':
+                return 'Đang xác minh';
+            case  'PAYMENT_FAILED':
+                return 'Thanh toán thất bại'
+            default:
+                return 'Chưa thanh toán'; // Mặc định cho các trường hợp khác
+        }
+    }
+</script>
+<script>
+    function confirmPayment(orderId) {
+            currentOrderId = orderId; // Lưu orderId vào biến toàn cục
+            document.getElementById('payment-modal').style.display = 'flex'; // Hiển thị modal
+    }
+</script>
+<script>
+    document.getElementById('confirm-success-btn').addEventListener('click', function () {
+        if (currentOrderId) {
+            fetch(`/order/${currentOrderId}/confirm-payment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 1000) {
+                        alert("Xác nhận thanh toán thành công!");
+                        Promise.all([
+                            fetch(`/api/v1/email/${currentOrderId}/announce-pay-success`, { method: "POST" }),
+                            new Promise(resolve => setTimeout(resolve, 500))
+                        ]).then(() => {
+                            fetchOrders(currentPage);
+                        });
+                        // fetchOrders(currentPage); // Làm mới bảng
+                    } else {
+                        alert("Xác nhận thanh toán thất bại: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error confirming payment:", error);
+                    alert("Có lỗi xảy ra khi xác nhận thanh toán. Vui lòng thử lại sau.");
+                })
+                .finally(() => {
+                    document.getElementById('payment-modal').style.display = 'none'; // Ẩn modal
+                });
+        }
+    });
+
+    document.getElementById('confirm-failed-btn').addEventListener('click', function () {
+        if (currentOrderId) {
+            fetch(`/order/${currentOrderId}/payment-falled`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 1000) {
+                        alert("Xác nhận thanh toán thất bại!");
+                        Promise.all([
+                            fetch(`/api/v1/email/${currentOrderId}/announce-pay-falled`, { method: "POST" }),
+                            new Promise(resolve => setTimeout(resolve, 500))
+                        ]).then(() => {
+                            fetchOrders(currentPage);
+                        });
+                        // fetchOrders(currentPage); // Làm mới bảng
+                    } else {
+                        alert("Xác nhận thanh toán thất bại: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error confirming payment failed:", error);
+                    alert("Có lỗi xảy ra khi xác nhận thanh toán thất bại. Vui lòng thử lại sau.");
+                })
+                .finally(() => {
+                    document.getElementById('payment-modal').style.display = 'none'; // Ẩn modal
+                });
+        }
+    });
+
+    document.getElementById('close-modal-btn').addEventListener('click', function () {
+        document.getElementById('payment-modal').style.display = 'none'; // Ẩn modal
+    });
+</script>
+</body>
+</html>

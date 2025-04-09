@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Package</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/css/package.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .user-icon {
+      font-size: 24px;
+      cursor: pointer;
+      position: relative;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 30px;
+      right: 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      width: 150px;
+      z-index: 1000;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+    .dropdown-menu a:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a href="#" class="logo"><span>Future</span>Wonders</a>
+  <nav class="bar">
+    <a href="home" class="indam">Trang chủ</a>
+    <a href="booking">Đặt vé</a>
+    <a href="hotel">Khách sạn</a>
+    <a href="flight">Chuyến bay</a>
+    <a href="trending">Nổi bật</a>
+    <a href="news">Tin tức</a>
+    <a href="package">Gói </a>
+    <a href="services">Dịch vụ</a>
+    <a href="gallery">Ảnh</a>
+    <a href="review">Đánh Giá</a>
+    <a href="contact">Liên hệ</a>
+    <a href="plan-trip">Thanh Toán</a>
+  </nav>
+  <div class="icons">
+    <a href="#"><i class="fas fa-search" id="search-btn"></i></a>
+    <!--        <a href="user"><i class="fas fa-user" id="login-btn"></i></a>-->
+    <a href="#" id="user-icon">
+      <i class="fas fa-user"></i>
+    </a>
+    <div id="user-menu" class="dropdown-menu">
+      <a href="/profile">Xem Profile</a>
+      <a href="/user">Đăng xuất</a>
+    </div>
+  </div>
+</header>
+<script>
+  document.getElementById("user-icon").addEventListener("click", function(event) {
+    event.preventDefault(); // Ngăn chặn chuyển trang
+    let menu = document.getElementById("user-menu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+
+  // Ẩn menu khi click ra ngoài
+  document.addEventListener("click", function(event) {
+    let userIcon = document.getElementById("user-icon");
+    let menu = document.getElementById("user-menu");
+
+    if (!userIcon.contains(event.target) && !menu.contains(event.target)) {
+      menu.style.display = "none";
+    }
+  });
+</script>
+<h1 class="heading">
+  <span>p</span>
+  <span>a</span>
+  <span>c</span>
+  <span>k</span>
+  <span>a</span>
+  <span>g</span>
+  <span>e</span>
+</h1>
+<div class="khoitin">
+  <div class="tin">
+    <video  controls loop >
+      <source src="images\vương quốc anh.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h3> <i class="fas fa-map-marker-alt"></i> Vương quốc Anh </h3>
+      <p>Hawaii, nổi tiếng với sự đa dạng văn hóa, khí hậu nhiệt
+        đới và phong cảnh tuyệt đẹp, là điểm đến hàng đầu cho du
+        khách tìm
+        kiếm sự thư giãn, phiêu lưu và tinh thần aloha ấm áp.</p>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <div class="price"> 15.000.000 VND
+        <p>
+          <span>30.000.000 VND</span>
+        </p>
+      </div>
+      <a href="flight" class="docthem">Đặt ngay</a>
+    </div>
+  </div>
+  <div class="tin">
+    <video  controls loop >
+      <source src="images\Hawaii.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h3> <i class="fas fa-map-marker-alt"></i> hawaii </h3>
+      <p>Hawaii, nổi tiếng với sự đa dạng văn hóa, khí hậu nhiệt đới và phong cảnh tuyệt đẹp, là điểm đến hàng đầu cho du khách tìm kiếm sự thư giãn, phiêu lưu và tinh thần aloha ấm áp. </p>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="price"> 15.000.000 VND
+      <p>
+        <span>30.000.000 VND</span>
+      </p></div>
+      <a href="flight" class="docthem">Đặt ngay</a>
+    </div>
+  </div>
+  <div class="tin">
+    <video  controls loop >
+      <source src="images\mountain2.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h3> <i class="fas fa-map-marker-alt"></i>  Patagonia </h3>
+      <p>Patagonia's remote towns and settlements provide a unique opportunity to explore the region's rich culture and history,making it a unique South American destination for adventure </p>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <div class="price"> 15.000.000 VND
+        <p>
+          <span>30.000.000 VND</span>
+        </p></div>
+      <a href="flight" class="docthem">Đặt ngay</a>
+    </div>
+  </div>
+  <div class="tin">
+    <video  controls loop >
+      <source src="images\paris_-_16619 (540p).mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h3> <i class="fas fa-map-marker-alt"></i> Paris </h3>
+      <p>Paris is a city that offers a unique blend of history, culture, and sophistication, making it a top destination for travelers from around the world. Whether you're interested in art, history, fashion, or simply soaking up the romantic ambiance, Paris has something to offer everyone.</p>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="price"> 15.000.000 VND
+        <p>
+          <span>30.000.000 VND</span>
+        </p></div>
+      <a href="flight" class="docthem">Đặt ngay</a>
+    </div>
+  </div>
+  <div class="tin">
+    <video  controls loop >
+      <source src="images\cherry.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h3> <i class="fas fa-map-marker-alt"></i> Tokyo</h3>
+      <p>Tokyo, Japan's dynamic capital, gracefully harmonizes modernity with tradition, presenting a unique and multifaceted experience for visitors in this vibrant city.</p>
+      <br><br>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <div class="price"> 15.000.000 VND
+        <p>
+          <span>30.000.000 VND</span>
+        </p></div>
+      <a href="flight" class="docthem">Đặt ngay</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
